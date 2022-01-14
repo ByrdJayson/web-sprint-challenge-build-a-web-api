@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
             })
     }
 })
+
 router.put('/:id', (req, res) => {
     const { id } = req.params
     const { name, description, completed } = req.body
@@ -84,14 +85,14 @@ router.get('/:id/actions', (req, res) => {
     const { id } = req.params
     Project.getProjectActions(id)
         .then(actions => {
-            if(actions){
+            if (actions) {
                 res.status(200).json(actions)
             } else {
-                res.status(404).json({message: `Actions for project with id ${id} not found`})
+                res.status(404).json({ message: `Actions for project with id ${id} not found` })
             }
         })
         .catch(() => {
-            res.status(500).json({message: "Error Fetching Project Actions"})
+            res.status(500).json({ message: "Error Fetching Project Actions" })
         })
 })
 

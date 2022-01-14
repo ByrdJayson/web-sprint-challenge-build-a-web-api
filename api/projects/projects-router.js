@@ -45,6 +45,26 @@ router.post('/', (req, res) => {
         }) 
     }
 
+    router.put('/:id', (req, res) => {
+        const { id } = req.params
+        const { name, description, completed } = req.body
+        if(!name || !description){
+            res.status(400).json({message: "Name and description are required"})
+        } else if(typeof completed === 'undefined'){
+            res.status(400).json({message: "Completed is required"})
+        }
+            else {
+            Project.update(id, req.body)
+                .then(project => {
+                    res.status(200).json(project)
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json({message: "Error Updating Project!"})
+                })
+        }
+    })
+
     
 })
 
